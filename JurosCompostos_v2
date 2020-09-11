@@ -1,0 +1,72 @@
+#!python
+# calculadora juros compostos:
+import math
+
+
+class JurosCompostos:
+    def __init__(self, capital=None, taxamensal=None,
+                 tempo=None, montante=None):
+        self.taxamensal = taxamensal
+        self.tempo = tempo
+        self.capital = capital
+        self.montante = montante
+
+    def CalculoMontante(self, capital, taxamensal, tempo):
+        montante = capital * ((1 + taxamensal)**tempo)
+        print(f'Montante = {montante:.2f}')
+        return montante
+
+    def CalculoJuros(self, montante, capital):
+        juros = montante - capital
+        print(f'Juros = {juros:.2f}')
+        return juros
+
+    def CalculoTaxaMensal(self, capital, montante, tempo):
+        tmensal = math.pow(montante/capital, 1/tempo) - 1
+        print(f'TaxaMensal = {tmensal*100:.2f} %')
+        return tmensal
+
+
+class JurosSimples:
+    def __init__(self, juros, capital, taxajuros, tempo):
+        self.juros = juros
+        self.capital = capital
+        self.taxajuros = taxajuros
+        self.tempo = tempo
+
+    def CalculoJuros(self, capital, taxajuros, tempo):
+        juros = capital * taxajuros * tempo
+        print(f'Juros: {juros}\n')
+        return juros
+
+    def CalculoMontante(self, capital, taxajuros, tempo=None):
+        montante = capital * ((1+taxajuros) * tempo)
+        print(f'Montante: {montante}')
+        return montante
+
+
+if __name__ == "__main__":
+    Calculos = JurosCompostos()
+    print("Digite o que você deseja fazer:\n\
+1 - Calcular Juros\n\
+2 - Calcular Montante\n\
+3 - Calcular Taxa Mensal\n")
+    opcao = input()
+    print(type(opcao))
+    if opcao == '1':
+        JurosMont = input('Digite Montante: ')
+        JurosCapIni = input('Digite Capital Inicial: ')
+        Calculos.CalculoJuros(float(JurosMont),
+                              float(JurosCapIni))
+    elif opcao == '2':
+        MontCapIni = input('Digite Capital Inicial: ')
+        MontTaxa = input('Digite Taxa Mensal: ')
+        MontTempo = input('Digite a quantidade de meses: ')
+        Calculos.CalculoMontante(
+            float(MontCapIni), float(MontTaxa), int(MontTempo))
+    elif opcao == '3':
+        TaxaCapIni = input('Digite Capital Inicial: ')
+        TaxaMont = input('Digite Montante: ')
+        TaxaTempo = input('Digite a quantidade de meses: ')
+    Calculos.CalculoTaxaMensal(
+        float(TaxaCapIni), float(TaxaMont), int(TaxaTempo))
